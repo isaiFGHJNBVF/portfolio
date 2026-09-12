@@ -184,7 +184,7 @@ body.no-video {
   flex-wrap: wrap;
 }
 
-#name-row { display: flex; gap: 6px; flex-wrap: wrap; }
+#name-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 
 .name-wrapper {
   position: relative;
@@ -284,6 +284,59 @@ body.no-video {
   transform: translateX(-50%) translateY(0);
 }
 
+/* ============================================================
+   SERVER TAG — shared pill used in TWO places:
+   #server-tag   → next to the primary pfp name
+   #server-tag-2 → next to the username in the presence box
+   assets/tag.png + text, click opens the invite link
+   ============================================================ */
+.server-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 25px;
+  background: var(--badge-container-bg, rgba(172, 200, 255, 0.08));
+  border: var(--badge-container-border, 2px solid rgba(172, 200, 255, 0.04));
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.server-tag:hover {
+  transform: translateY(-2px);
+  background: rgba(172, 200, 255, 0.15);
+}
+
+.server-tag img {
+  width: var(--tag-icon-size, 17px);
+  height: var(--tag-icon-size, 17px);
+  object-fit: contain;
+  display: block;
+}
+
+.server-tag span {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #acc8ff;
+  white-space: nowrap;
+}
+
+/* Compact variant for the presence box */
+.server-tag.sm {
+  gap: 4px;
+  padding: 2px 8px 2px 5px;
+}
+
+.server-tag.sm img {
+  width: var(--tag-icon-size-sm, 13px);
+  height: var(--tag-icon-size-sm, 13px);
+}
+
+.server-tag.sm span {
+  font-size: 10px;
+}
+
 /* Status text — typewriter effect */
 #profile-status {
   margin-top: 4px;
@@ -363,6 +416,14 @@ body.no-video {
   font-size: 12px;
   line-height: 1.4;
   overflow: hidden;
+}
+
+/* username + small server tag row */
+#discord-username-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
 }
 
 #discord-username { color: #acc8ff; font-weight: 550; font-size: 18.5px; }
