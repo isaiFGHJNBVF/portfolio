@@ -31,6 +31,18 @@ const CONFIG = {
   avatarDecoration: "assets/decor.gif",   // your gif decoration. "" to disable
 
   // ----------------------------------------------------------
+  // SERVER TAG  (assets/tag.png)
+  // Small pill next to your name — click opens the invite link.
+  // text: "" = icon-only tag. iconSize controls the tag.png size.
+  // ----------------------------------------------------------
+  serverTag: {
+    image:    "assets/tag.png",
+    text:     "JAIL",
+    url:      "https://discord.gg/palayamkottai",
+    iconSize: "17px",
+  },
+
+  // ----------------------------------------------------------
   // BADGES  (folder: assets/icon/)
   // Just list the file names WITHOUT .png — the file name
   // becomes the tooltip label automatically.
