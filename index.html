@@ -63,6 +63,11 @@
                   <span class="name-tooltip" id="name-tooltip"></span>
                 </div>
                 <div id="badges"></div>
+                <!-- Server tag #1 — next to the primary pfp name -->
+                <a id="server-tag" class="server-tag" href="#" target="_blank" rel="noopener noreferrer" hidden>
+                  <img class="server-tag-icon" src="" alt="" />
+                  <span class="server-tag-text"></span>
+                </a>
               </div>
             </div>
             <p id="profile-status"></p>
@@ -77,7 +82,14 @@
             <span id="discord-status-dot" hidden></span>
           </div>
           <div id="discord-info">
-            <span id="discord-username"></span>
+            <span id="discord-username-row">
+              <span id="discord-username"></span>
+              <!-- Server tag #2 — next to the secondary pfp (presence box) -->
+              <a id="server-tag-2" class="server-tag sm" href="#" target="_blank" rel="noopener noreferrer" hidden>
+                <img class="server-tag-icon" src="" alt="" />
+                <span class="server-tag-text"></span>
+              </a>
+            </span>
             <span id="discord-activity"></span>
           </div>
         </div>
