@@ -38,6 +38,48 @@ document.addEventListener("DOMContentLoaded", () => {
     badgesContainer.appendChild(item);
   });
 
+  // -- Server tags — TWO places, one config:
+  //    #server-tag   → next to the primary pfp name
+  //    #server-tag-2 → next to the username in the presence box
+  // ------------------------------------------------------------
+  const tagCfg = CONFIG.serverTag || {};
+  initServerTag(document.getElementById("server-tag"),   tagCfg, false);
+  initServerTag(document.getElementById("server-tag-2"), tagCfg, true);
+
+  function initServerTag(el, cfg, small) {
+    if (!el) return;
+    const img  = el.querySelector(".server-tag-icon");
+    const text = el.querySelector(".server-tag-text");
+
+    if (cfg.text) {
+      text.textContent = cfg.text;
+      el.title = cfg.text;
+    } else {
+      text.style.display = "none";
+    }
+
+    if (cfg.url) el.href = cfg.url;
+
+    // the small variant keeps its own CSS size unless you set one in config
+    if (cfg.iconSize && !small) {
+      el.style.setProperty("--tag-icon-size", cfg.iconSize);
+    }
+
+    if (cfg.image) {
+      img.onload = () => { el.hidden = false; };
+      img.onerror = () => {
+        // image missing — fall back to text-only tag (if there is text)
+        img.style.display = "none";
+        if (cfg.text) el.hidden = false;
+        console.warn(`[isai] server tag image missing: ${cfg.image} — showing text only`);
+      };
+      img.src = cfg.image;
+    } else {
+      img.style.display = "none";
+      if (cfg.text) el.hidden = false;         // text-only tag
+    }
+  }
+
   // -- Avatar (with CDN fallback if pfp.png missing) --
   const avatarEl = document.getElementById("avatar");
   avatarEl.onerror = () => {
