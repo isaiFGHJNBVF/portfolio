@@ -10,7 +10,7 @@ const CONFIG = {
   profileName:   "𝔦𝔰𝔞𝔦_𝔱𝔞𝔪𝔦𝔩",
   nameTooltip:   "isai_tamil",
   nameEffect:    "noise",                        // "noise" | "none"
-  statusText:    "Bro is just chiling...",
+  statusText:    "Bro is just chiling.../n Also check",
   tabTitle:      "@𝔦𝔰𝔞𝔦",
   entrySymbol:   "✦ ♪ ✦",
 
