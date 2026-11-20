@@ -5,20 +5,37 @@
 const CONFIG = {
 
   // ----------------------------------------------------------
-  // PROFILE
+  // LIVE DISCORD DATA (via Lanyard — see js/lanyard.js)
+  // Your username, display name, avatar, status, and current
+  // activity/custom status all come live from Discord. The
+  // fields below are only the FALLBACK shown before the API
+  // responds, or if Lanyard is ever unreachable.
+  // ----------------------------------------------------------
+  discordUserId: "1377967442172579843",
+  useLanyard:    true,
+
+  // ----------------------------------------------------------
+  // PROFILE (fallback values — overwritten live once Lanyard loads)
   // ----------------------------------------------------------
   profileName:   "𝔦𝔰𝔞𝔦_𝔱𝔞𝔪𝔦𝔩",
   nameTooltip:   "isai_tamil",
   nameEffect:    "noise",                        // "noise" | "none"
-  statusText:    "Bro is just chiling...",
   tabTitle:      "@𝔦𝔰𝔞𝔦",
   entrySymbol:   "✦ ♪ ✦",
 
   // ----------------------------------------------------------
+  // BIO
+  // Discord has no public "About Me" API — not even for bots —
+  // so this line is always written by hand, not fetched.
+  // ----------------------------------------------------------
+  bioText: "Bro is just chiling...",
+
+  // ----------------------------------------------------------
   // FILES  (all inside assets/)
   // ----------------------------------------------------------
-  avatar:          "assets/pfp.png",     // your profile picture
-  avatarFallback:  "https://cdn.discordapp.com/avatars/1377967442172579843/a0bae70c8f3582ff93d678f43190a29f.png?size=4096", // used only if pfp.png is missing
+  // No local pfp.png anymore — your avatar is fetched live from
+  // Discord's CDN via Lanyard. This is just the loading fallback.
+  avatarFallback:  "https://cdn.discordapp.com/embed/avatars/0.png",
   backgroundVideo: "assets/background.mp4",
   customCursor:        "assets/cursor.png",   // any size — auto-resized. "" to disable
   customCursorHotspot: "0 0",
@@ -28,15 +45,20 @@ const CONFIG = {
   // AVATAR
   // ----------------------------------------------------------
   avatarSize:       "118px",
-  avatarDecoration: "assets/decor.gif",   // your gif decoration. "" to disable
+  // avatarDecoration removed — decor.gif was deleted from assets.
+  // Add a new file + path here if you want one back.
+  avatarDecoration: "",
 
   // ----------------------------------------------------------
-  // SERVER TAG  (assets/tag.png)
-  // Small pill next to your name — click opens the invite link.
-  // text: "" = icon-only tag. iconSize controls the tag.png size.
+  // SERVER TAG
+  // Lanyard will show your real Discord clan/server tag live if
+  // Discord provides it for your account (not all accounts have
+  // one set). These are only the fallback name/link while that
+  // loads, or if your account has no clan tag.
+  // tag.png was deleted, so there's no local icon fallback —
+  // the live clan badge (if any) is pulled straight from Discord's CDN.
   // ----------------------------------------------------------
   serverTag: {
-    image:    "assets/tag.png",
     text:     "JAIL",
     url:      "https://discord.gg/palayamkottai",
     iconSize: "17px",
@@ -58,18 +80,16 @@ const CONFIG = {
   badgeContainerBorder:     "2px solid rgba(172, 200, 255, 0.04)",
 
   // ----------------------------------------------------------
-  // DISCORD (static — no API, edit manually)
+  // DISCORD PRESENCE — fallback only, Lanyard drives this live
   // ----------------------------------------------------------
-  discordUsername: "isai_tamil",
+  discordUsername: "isai_tamil",      // shown until Lanyard responds
   discordStatus:   "Bro is just chiling...",
-  discordAvatar:   "assets/pfp.png",      // uses your pfp
   discordAvatarSize:   "74px",
   discordAvatarBorder: "2px solid rgba(172, 200, 255, 0.15)",
-  // "online" | "idle" | "dnd" | "offline"
-  // icon is loaded from:  assets/status/<status>.png
-  // so your file must be: assets/status/dnd.png
-  discordPresenceStatus: "dnd",
-  statusIconFolder: "assets/status/",
+  // "online" | "idle" | "dnd" | "offline" — fallback only.
+  // assets/status/ was deleted, so the live status always renders
+  // as the colored CSS dot now (no per-status PNG icon).
+  discordPresenceStatus: "offline",
 
   // ----------------------------------------------------------
   // SOCIAL LINKS
