@@ -80,27 +80,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -- Avatar (with CDN fallback if pfp.png missing) --
+  // -- Avatar --
+  // No local pfp.png anymore: this fallback shows until js/lanyard.js
+  // overwrites it with your real, live Discord avatar.
   const avatarEl = document.getElementById("avatar");
-  avatarEl.onerror = () => {
-    if (CONFIG.avatarFallback && avatarEl.src !== CONFIG.avatarFallback) {
-      avatarEl.src = CONFIG.avatarFallback;
-    }
-  };
-  avatarEl.src = CONFIG.avatar;
+  avatarEl.src = CONFIG.avatarFallback;
   document.documentElement.style.setProperty("--avatar-size", CONFIG.avatarSize);
 
   // -- Avatar decoration --
-  const decorationEl = document.getElementById("avatar-decoration");
-  decorationEl.onerror = () => {
-    decorationEl.style.display = "none";
-    console.warn("[isai] decoration missing: assets/decor.gif");
-  };
+  // decor.gif was removed from assets/. Set CONFIG.avatarDecoration to a
+  // new file path to bring this back; it stays off otherwise.
   if (CONFIG.avatarDecoration) {
-    decorationEl.style.display = "";
-    decorationEl.src = CONFIG.avatarDecoration;
-  } else {
-    decorationEl.style.display = "none";
+    const decorationEl = document.getElementById("avatar-decoration");
+    if (decorationEl) {
+      decorationEl.onerror = () => { decorationEl.style.display = "none"; };
+      decorationEl.style.display = "";
+      decorationEl.src = CONFIG.avatarDecoration;
+    }
   }
 
   // -- Background video (graceful fallback if missing) --
@@ -179,22 +175,26 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // -- Discord presence --
+  // This is just the fallback paint; js/lanyard.js overwrites all of
+  // it live (username, activity/custom status, avatar, status dot)
+  // once the Lanyard API responds.
   document.getElementById("discord-username").textContent = CONFIG.discordUsername;
   document.getElementById("discord-activity").textContent = CONFIG.discordStatus;
-  document.getElementById("discord-avatar").src           = CONFIG.discordAvatar;
+  document.getElementById("discord-avatar").src           = CONFIG.avatarFallback;
 
-  // -- Status icon: assets/status/<status>.png, CSS dot fallback --
-  const statusIcon = document.getElementById("discord-status-icon");
-  const statusDot  = document.getElementById("discord-status-dot");
+  // -- Status dot --
+  // assets/status/ was removed, so the status indicator is always the
+  // plain colored CSS dot (no per-status PNG icon) — simpler and it's
+  // what gets driven live anyway.
+  const statusIconEl = document.getElementById("discord-status-icon");
+  if (statusIconEl) statusIconEl.hidden = true;
+  const statusDot = document.getElementById("discord-status-dot");
   const valid = ["online", "idle", "dnd", "offline"].includes(CONFIG.discordPresenceStatus)
     ? CONFIG.discordPresenceStatus : "offline";
+  statusDot.hidden = false;
+  statusDot.className = "status-" + valid;
 
-  statusIcon.onerror = () => {
-    statusIcon.hidden = true;
-    statusDot.hidden  = false;
-    statusDot.className = "status-" + valid;
-  };
-  statusIcon.src = `${CONFIG.statusIconFolder}${valid}.png`;
+
 
   // -- Custom cursor (auto-resizes any PNG, optional fallback) --
   initCustomCursor();
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       profileCard.classList.add("revealed");
-      initTypewriter(document.getElementById("profile-status"), CONFIG.statusText, 60);
+      initTypewriter(document.getElementById("profile-status"), CONFIG.bioText, 60);
     }, CONFIG.cardRevealDelay);
   });
 
